@@ -22,8 +22,8 @@ def get_attractions():
 
     try:
         with client.messages.stream(
-            model="claude-opus-4-6",
-            max_tokens=8000,
+            model="claude-sonnet-4-20250514",
+            max_tokens=2500,
             tools=[{"type": "web_search_20260209", "name": "web_search"}],
             messages=[{
                 "role": "user",
