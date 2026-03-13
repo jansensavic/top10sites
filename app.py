@@ -21,9 +21,9 @@ def get_attractions():
         return jsonify({'error': 'Location is required'}), 400
 
     try:
-        with client.messages.stream(
+        final = client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2500,
+            max_tokens=4096,
             messages=[{
                 "role": "user",
                 "content": (
@@ -31,15 +31,14 @@ def get_attractions():
                     "Return ONLY valid JSON (no markdown code blocks, no explanation text) "
                     "in exactly this format:\n"
                     '{"attractions": [{"rank": 1, "name": "Attraction Name", '
-                    '"paragraph1": "First detailed paragraph...", '
-                    '"paragraph2": "Second detailed paragraph..."}, ...]}\n'
+                    '"paragraph1": "First paragraph...", '
+                    '"paragraph2": "Second paragraph..."}, ...]}\n'
                     "Include exactly 10 attractions ranked by importance. "
-                    "Each paragraph should be 3-4 rich, informative sentences covering history, "
+                    "Each paragraph should be 2 short sentences covering history, "
                     "what to expect, and why it is worth visiting."
                 )
             }]
-        ) as stream:
-            final = stream.get_final_message()
+        )
 
         text_blocks = [b.text for b in final.content if b.type == "text"]
         if not text_blocks:
