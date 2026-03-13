@@ -27,9 +27,13 @@ def get_attractions():
             messages=[{
                 "role": "user",
                 "content": (
-                    f"Top 10 tourist attractions in {location}. "
-                    "Return ONLY valid JSON, no markdown:\n"
-                    '{"attractions": [{"rank": 1, "name": "Name", "description": "2 sentences."}, ...]}'
+                    f"List the top 10 tourist attractions in {location}. "
+                    "You MUST return ONLY a valid JSON object, no markdown, no explanation. "
+                    "Each attraction MUST have a 'description' field with exactly 2 full sentences about the attraction. "
+                    "Use this exact format:\n"
+                    '{"attractions": ['
+                    '{"rank": 1, "name": "Eiffel Tower", "description": "The Eiffel Tower is a world-famous iron lattice tower standing 330 meters tall in the heart of Paris. Built in 1889, it attracts millions of visitors each year and offers stunning views of the city."}'
+                    ', ...]}'
                 )
             }]
         )
