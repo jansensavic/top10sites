@@ -22,20 +22,14 @@ def get_attractions():
 
     try:
         final = client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=4096,
+            model="claude-haiku-4-5-20251001",
+            max_tokens=2000,
             messages=[{
                 "role": "user",
                 "content": (
-                    f"List the top 10 tourist attractions in {location}. "
-                    "Return ONLY valid JSON (no markdown code blocks, no explanation text) "
-                    "in exactly this format:\n"
-                    '{"attractions": [{"rank": 1, "name": "Attraction Name", '
-                    '"paragraph1": "First paragraph...", '
-                    '"paragraph2": "Second paragraph..."}, ...]}\n'
-                    "Include exactly 10 attractions ranked by importance. "
-                    "Each paragraph should be 2 short sentences covering history, "
-                    "what to expect, and why it is worth visiting."
+                    f"Top 10 tourist attractions in {location}. "
+                    "Return ONLY valid JSON, no markdown:\n"
+                    '{"attractions": [{"rank": 1, "name": "Name", "description": "2 sentences."}, ...]}'
                 )
             }]
         )
