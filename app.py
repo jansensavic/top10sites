@@ -30,13 +30,13 @@ def get_attractions():
                     f"List EXACTLY 10 tourist attractions in {location}, no more, no less. "
                     "You MUST return ONLY a valid JSON object, no markdown, no explanation. "
                     "Each attraction MUST have a 'description' field with exactly 2 full sentences, "
-                    "and an 'image_search' field with a short 3-4 word search term for that attraction. "
+                    "and an 'image_search' field with the exact Wikipedia article title for that attraction. "
                     "Use this exact format:\n"
                     '{"attractions": ['
                     '{"rank": 1, "name": "Eiffel Tower", '
                     '"description": "The Eiffel Tower is a world-famous iron lattice tower standing 330 meters tall. '
                     'Built in 1889, it attracts millions of visitors and offers stunning views.", '
-                    '"image_search": "Eiffel Tower Paris"}'
+                    '"image_search": "Eiffel Tower"}'
                     ', ...]}'
                 )
             }]

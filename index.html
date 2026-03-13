@@ -285,21 +285,19 @@
     }
   }
 
-  const UNSPLASH_KEY = 'K5QMg6YbGT1MG_qSotIJzU-6J-A6mNCSPW09OUqk_so';
-
-  async function getUnsplashImage(searchTerm) {
+  async function getWikipediaImage(searchTerm) {
     try {
       const encoded = encodeURIComponent(searchTerm);
-      const res = await fetch(
-        `https://api.unsplash.com/search/photos?query=${encoded}&per_page=1&orientation=landscape`,
-        { headers: { 'Authorization': `Client-ID ${UNSPLASH_KEY}` } }
-      );
+      const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encoded}&prop=pageimages&format=json&pithumbsize=600&pilimit=1&origin=*`;
+      const res = await fetch(url);
       const data = await res.json();
-      if (data.results && data.results.length > 0) {
-        return data.results[0].urls.regular;
+      const pages = data.query.pages;
+      for (const page of Object.values(pages)) {
+        if (page.thumbnail && page.thumbnail.source) {
+          return page.thumbnail.source;
+        }
       }
     } catch (e) {}
-    // Fallback to picsum if unsplash fails
     return `https://picsum.photos/seed/${encodeURIComponent(searchTerm)}/400/300`;
   }
 
@@ -314,10 +312,7 @@
       const [c1, c2] = CARD_GRADIENTS[i % CARD_GRADIENTS.length];
       const card = document.createElement('div');
       card.className = 'card';
-
-      // Fetch image from Unsplash in the browser
-      const imageUrl = await getUnsplashImage(a.image_search || a.name);
-
+      const imageUrl = await getWikipediaImage(a.image_search || a.name);
       card.innerHTML = `
         <img class="card-img" src="${imageUrl}" alt="${esc(a.name)}" loading="lazy" onerror="this.style.display='none'">
         <div class="card-header" style="background: linear-gradient(135deg, ${c1} 0%, ${c2} 100%)">
