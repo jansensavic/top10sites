@@ -23,11 +23,11 @@ def get_attractions():
     try:
         final = client.messages.create(
             model="claude-haiku-4-5-20251001",
-            max_tokens=2000,
+            max_tokens=3000,
             messages=[{
                 "role": "user",
                 "content": (
-                    f"List the top 10 tourist attractions in {location}. "
+                    f"List EXACTLY 10 tourist attractions in {location}, no more, no less. "
                     "You MUST return ONLY a valid JSON object, no markdown, no explanation. "
                     "Each attraction MUST have a 'description' field with exactly 2 full sentences about the attraction. "
                     "Use this exact format:\n"
