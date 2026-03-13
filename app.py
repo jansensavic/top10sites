@@ -24,13 +24,11 @@ def get_attractions():
         with client.messages.stream(
             model="claude-sonnet-4-20250514",
             max_tokens=2500,
-            tools=[{"type": "web_search_20260209", "name": "web_search"}],
             messages=[{
                 "role": "user",
                 "content": (
-                    f"Search the web for the top 10 tourist attractions in {location}. "
-                    "Use web search to consult TripAdvisor and Lonely Planet only.  "
-                    "After researching, return ONLY valid JSON (no markdown code blocks, no explanation text) "
+                    f"List the top 10 tourist attractions in {location}. "
+                    "Return ONLY valid JSON (no markdown code blocks, no explanation text) "
                     "in exactly this format:\n"
                     '{"attractions": [{"rank": 1, "name": "Attraction Name", '
                     '"paragraph1": "First detailed paragraph...", '
