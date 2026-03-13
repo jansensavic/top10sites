@@ -286,6 +286,8 @@
   }
 
   function render(location, attractions) {
+    console.log("render called", attractions.length, "attractions");
+    console.log("First:", JSON.stringify(attractions[0]));
     document.getElementById('resultsHeading').textContent = `Top 10 Attractions in ${location}`;
 
     const grid = document.getElementById('grid');
